@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.jerry.demo.mapper.SysAccountMapper" >
+  <resultMap id="BaseResultMap" type="org.jerry.demo.model.SysAccount" >
+    <id column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_NAME" property="accountName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="INCOMEDATE" property="incomedate" jdbcType="TIMESTAMP" />
+    <result column="DELTAG" property="deltag" jdbcType="TINYINT" />
+    <result column="BEFORM" property="beform" jdbcType="VARCHAR" />
+    <result column="SYS_USER_INFO_USER_ID" property="sysUserInfoUserId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACCOUNT_ID, ACCOUNT_NAME, PASSWORD, INCOMEDATE, DELTAG, BEFORM, SYS_USER_INFO_USER_ID
+  </sql>
+  <select id="getAccountByName" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM SYS_ACCOUNT AS sac
+    WHERE sac.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from SYS_ACCOUNT
+    where ACCOUNT_ID = #{accountId,jdbcType=DECIMAL}
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from SYS_ACCOUNT
+    where ACCOUNT_ID = #{accountId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.jerry.demo.model.SysAccount" >
+    insert into SYS_ACCOUNT (ACCOUNT_ID, ACCOUNT_NAME, PASSWORD, 
+      INCOMEDATE, DELTAG, BEFORM, 
+      SYS_USER_INFO_USER_ID)
+    values (#{accountId,jdbcType=DECIMAL}, #{accountName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{incomedate,jdbcType=TIMESTAMP}, #{deltag,jdbcType=TINYINT}, #{beform,jdbcType=VARCHAR}, 
+      #{sysUserInfoUserId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="org.jerry.demo.model.SysAccount" >
+    insert into SYS_ACCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="accountName != null" >
+        ACCOUNT_NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="incomedate != null" >
+        INCOMEDATE,
+      </if>
+      <if test="deltag != null" >
+        DELTAG,
+      </if>
+      <if test="beform != null" >
+        BEFORM,
+      </if>
+      <if test="sysUserInfoUserId != null" >
+        SYS_USER_INFO_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="incomedate != null" >
+        #{incomedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deltag != null" >
+        #{deltag,jdbcType=TINYINT},
+      </if>
+      <if test="beform != null" >
+        #{beform,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUserInfoUserId != null" >
+        #{sysUserInfoUserId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.jerry.demo.model.SysAccount" >
+    update SYS_ACCOUNT
+    <set >
+      <if test="accountName != null" >
+        ACCOUNT_NAME = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="incomedate != null" >
+        INCOMEDATE = #{incomedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deltag != null" >
+        DELTAG = #{deltag,jdbcType=TINYINT},
+      </if>
+      <if test="beform != null" >
+        BEFORM = #{beform,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUserInfoUserId != null" >
+        SYS_USER_INFO_USER_ID = #{sysUserInfoUserId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ACCOUNT_ID = #{accountId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.jerry.demo.model.SysAccount" >
+    update SYS_ACCOUNT
+    set ACCOUNT_NAME = #{accountName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      INCOMEDATE = #{incomedate,jdbcType=TIMESTAMP},
+      DELTAG = #{deltag,jdbcType=TINYINT},
+      BEFORM = #{beform,jdbcType=VARCHAR},
+      SYS_USER_INFO_USER_ID = #{sysUserInfoUserId,jdbcType=DECIMAL}
+    where ACCOUNT_ID = #{accountId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.jerry.demo.mapper.SysUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.jerry.demo.model.SysUserInfo" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_BRITHDAY" property="userBrithday" jdbcType="VARCHAR" />
+    <result column="USER_AGE" property="userAge" jdbcType="VARCHAR" />
+    <result column="USER_WORK_TEL" property="userWorkTel" jdbcType="VARCHAR" />
+    <result column="USER_MAIL" property="userMail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, USER_NAME, USER_BRITHDAY, USER_AGE, USER_WORK_TEL, USER_MAIL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_USER_INFO
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from SYS_USER_INFO
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.jerry.demo.model.SysUserInfo" >
+    insert into SYS_USER_INFO (USER_ID, USER_NAME, USER_BRITHDAY, 
+      USER_AGE, USER_WORK_TEL, USER_MAIL
+      )
+    values (#{userId,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{userBrithday,jdbcType=VARCHAR}, 
+      #{userAge,jdbcType=VARCHAR}, #{userWorkTel,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.jerry.demo.model.SysUserInfo" >
+    insert into SYS_USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userBrithday != null" >
+        USER_BRITHDAY,
+      </if>
+      <if test="userAge != null" >
+        USER_AGE,
+      </if>
+      <if test="userWorkTel != null" >
+        USER_WORK_TEL,
+      </if>
+      <if test="userMail != null" >
+        USER_MAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userBrithday != null" >
+        #{userBrithday,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null" >
+        #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userWorkTel != null" >
+        #{userWorkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null" >
+        #{userMail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.jerry.demo.model.SysUserInfo" >
+    update SYS_USER_INFO
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userBrithday != null" >
+        USER_BRITHDAY = #{userBrithday,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null" >
+        USER_AGE = #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userWorkTel != null" >
+        USER_WORK_TEL = #{userWorkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null" >
+        USER_MAIL = #{userMail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.jerry.demo.model.SysUserInfo" >
+    update SYS_USER_INFO
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_BRITHDAY = #{userBrithday,jdbcType=VARCHAR},
+      USER_AGE = #{userAge,jdbcType=VARCHAR},
+      USER_WORK_TEL = #{userWorkTel,jdbcType=VARCHAR},
+      USER_MAIL = #{userMail,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+</mapper>
